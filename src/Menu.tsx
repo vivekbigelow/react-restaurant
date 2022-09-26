@@ -1,6 +1,9 @@
-import { foods } from './food';
-export default function Menu () {
-    return (
+import { foods } from "./food";
+import Heading from "./resusable/Heading";
+export default function Menu() {
+  return (
+    <>
+      <Heading level={2}>Menu</Heading>
       <div className="p-4 flex flex-wrap">
         {foods.map((food) => {
           return (
@@ -13,5 +16,6 @@ export default function Menu () {
           );
         })}
       </div>
-    );
+    </>
+  );
 }
