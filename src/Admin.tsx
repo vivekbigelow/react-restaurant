@@ -4,6 +4,7 @@ import Input from "./resusable/Input";
 
 // Excercise 3 - Add a new Heading component.
 
+//Exercise 4 Support className on Input
 export default function Admin() {
   return (
     <>
@@ -12,7 +13,7 @@ export default function Admin() {
         <Input id="name" label="Name" />
         <Input id="description" label="Description" />
         <Input id="price" label="Price" type="number" />
-        <Button type="submit" variant="secondary">Save</Button>
+        <Button className="block" type="submit">Save</Button>
       </form>
     </>
   );
