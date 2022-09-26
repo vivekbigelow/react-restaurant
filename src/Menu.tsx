@@ -8,7 +8,7 @@ export default function Menu() {
         {foods.map((food) => {
           return (
             <div className="p-4 hover:bg-black hover:cursor-pointer max-w-sm hover:text-white shadow-lg m-4 rounded-md border-solid border-2 border-gray">
-              <h2 className="font-bold">{food.name}</h2>
+              <Heading level={2}>{food.name}</Heading>
               <img className="h-52" src={"/images/" + food.image} />
               <p>{food.description}</p>
               <p>${food.price}</p>
