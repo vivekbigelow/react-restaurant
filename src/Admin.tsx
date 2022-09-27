@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Food, foodTags } from "./food";
+import toast from "react-hot-toast";
+import { foodTags, NewFood } from "./food";
 import Button from "./resusable/Button";
 import CheckBox from "./resusable/CheckBox";
 import CheckBoxList from "./resusable/CheckBoxList";
 import Heading from "./resusable/Heading";
 import Input from "./resusable/Input";
+import { addFood } from "./services/foodsApi";
 
 // Excercise 3 - Add a new Heading component.
 
@@ -12,7 +14,9 @@ import Input from "./resusable/Input";
 
 // Exercise 5 - create checkbox and checkbox list components
 
-const emptyFood: Food = {
+
+
+const emptyFood: NewFood = {
   name: "",
   image: "",
   price: 0,
@@ -29,10 +33,17 @@ export default function Admin() {
     setFood((currentFood) => ({ ...currentFood, [id]: value }));
   };
 
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    await addFood(food); 
+    toast.success("Food added! 🍔");
+    setFood(emptyFood);
+  };
+
   return (
     <>
       <Heading level={2}>Admin</Heading>
-      <form className="p-4 w-1/2">
+      <form  onSubmit={handleSubmit} className="p-4 w-1/2">
         <Input
           id="name"
           label="Name"
