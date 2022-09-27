@@ -1,4 +1,5 @@
 import cx from "clsx";
+import React from "react";
 
 type InputProps = {
   id: string;
@@ -6,6 +7,7 @@ type InputProps = {
   type?: "text" | "number";
   className?: string;
   value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 };
 
 export default function Input({
@@ -14,6 +16,7 @@ export default function Input({
   type = "text",
   className,
   value = "",
+  onChange
 }: InputProps) {
   return (
     <div className={cx(className, "pb-4")}>
@@ -25,6 +28,7 @@ export default function Input({
         className="p-1 border-black border-2"
         type={type}
         value={value}
+        onChange={onChange}
       />
     </div>
   );
