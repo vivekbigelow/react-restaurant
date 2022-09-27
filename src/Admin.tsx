@@ -14,13 +14,13 @@ export default function Admin() {
   return (
     <>
       <Heading level={2}>Admin</Heading>
-      <form className="p-4">
+      <form className="p-4 w-1/2">
         <Input id="name" label="Name" />
         <Input id="description" label="Description" />
         <Input id="price" label="Price" type="number" />
-        <CheckBoxList>
+        <CheckBoxList label="Select Food Tags">
             {foodTags.map((tag) => (
-                <CheckBox key={tag} id={tag} label={tag} />
+                <CheckBox className="flex gap-1" key={tag} id={tag} label={tag} />
             ))}
         </CheckBoxList>
         <Button className="block" type="submit">
