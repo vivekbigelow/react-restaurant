@@ -18,6 +18,7 @@ export default function Admin() {
         <Input id="name" label="Name" />
         <Input id="description" label="Description" />
         <Input id="price" label="Price" type="number" />
+        <Input id="imageFilename" label="Image Filename" type="text" />
         <CheckBoxList label="Select Food Tags">
             {foodTags.map((tag) => (
                 <CheckBox className="flex gap-1" key={tag} id={tag} label={tag} />
