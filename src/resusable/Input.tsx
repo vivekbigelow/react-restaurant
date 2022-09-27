@@ -9,7 +9,8 @@ type InputProps = {
   className?: string;
   value?: string;
   error?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 };
 
 export default function Input({
@@ -19,7 +20,8 @@ export default function Input({
   className,
   value = "",
   error,
-  onChange
+  onChange,
+  onBlur
 }: InputProps) {
   return (
     <div className={cx(className, "pb-4")}>
@@ -32,6 +34,7 @@ export default function Input({
         type={type}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
       />
       {error && <Error error={error}/>}
     </div>
