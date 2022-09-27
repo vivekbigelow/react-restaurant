@@ -1,5 +1,6 @@
 import cx from "clsx";
 import React from "react";
+import Error from './Error';
 
 type InputProps = {
   id: string;
@@ -7,6 +8,7 @@ type InputProps = {
   type?: "text" | "number";
   className?: string;
   value?: string;
+  error?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 };
 
@@ -16,6 +18,7 @@ export default function Input({
   type = "text",
   className,
   value = "",
+  error,
   onChange
 }: InputProps) {
   return (
@@ -30,6 +33,7 @@ export default function Input({
         value={value}
         onChange={onChange}
       />
+      {error && <Error error={error}/>}
     </div>
   );
 }

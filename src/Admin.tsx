@@ -14,8 +14,6 @@ import { addFood } from "./services/foodsApi";
 
 // Exercise 5 - create checkbox and checkbox list components
 
-
-
 const emptyFood: NewFood = {
   name: "",
   image: "",
@@ -24,8 +22,17 @@ const emptyFood: NewFood = {
   tags: [],
 };
 
+export type Errors = {
+  name?: string;
+  image?: string;
+  price?: string;
+  description?: string;
+  tags?:string;
+}
+
 export default function Admin() {
   const [food, setFood] = useState(emptyFood);
+  const [errors, setErrors] = useState<Errors>({});
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
@@ -33,8 +40,31 @@ export default function Admin() {
     setFood((currentFood) => ({ ...currentFood, [id]: value }));
   };
 
+  function validate() {
+    const newErrors: Errors = {};
+    if (!food.name) {
+      newErrors.name = "Name is required";
+    }
+    if (!food.image) {
+      newErrors.image = "Image is required";
+    }
+    if (!food.price) {
+      newErrors.price = "Price is required";
+    }
+    if (!food.description) {
+      newErrors.description = "Description is required";
+    }
+    if (food.tags.length === 0) {
+      newErrors.tags = "At least one tag is required";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const isValid = validate();
+    if(!isValid) return;
     await addFood(food); 
     toast.success("Food added! 🍔");
     setFood(emptyFood);
@@ -49,12 +79,14 @@ export default function Admin() {
           label="Name"
           onChange={handleInputChange}
           value={food.name}
+          error={errors.name}
         />
         <Input
           id="description"
           label="Description"
           onChange={handleInputChange}
           value={food.description}
+          error={errors.description}
         />
         <Input
           id="price"
@@ -62,6 +94,7 @@ export default function Admin() {
           type="number"
           onChange={handleInputChange}
           value={food.price.toString()}
+          error={errors.price}
         />
         <Input
           id="image"
@@ -69,8 +102,9 @@ export default function Admin() {
           type="text"
           onChange={handleInputChange}
           value={food.image}
+          error={errors.image}
         />
-        <CheckBoxList label="Select Food Tags">
+        <CheckBoxList label="Select Food Tags" error={errors.tags}>
           {foodTags.map((tag) => (
             <CheckBox
               className="flex gap-1"
