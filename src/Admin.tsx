@@ -23,11 +23,11 @@ const emptyFood: Food = {
 export default function Admin() {
   const [food, setFood] = useState(emptyFood);
 
-  const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-    const {id, value} = event.target;
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = event.target;
     // React injects the current state value when a function is passsed to setState
-    setFood((currentFood) => ({...currentFood, [id]:value }))
-  }
+    setFood((currentFood) => ({ ...currentFood, [id]: value }));
+  };
 
   return (
     <>
@@ -49,16 +49,35 @@ export default function Admin() {
           id="price"
           label="Price"
           type="number"
+          onChange={handleInputChange}
+          value={food.price.toString()}
         />
         <Input
-          id="imageFilename"
+          id="image"
           label="Image Filename"
           type="text"
           onChange={handleInputChange}
+          value={food.image}
         />
         <CheckBoxList label="Select Food Tags">
           {foodTags.map((tag) => (
-            <CheckBox className="flex gap-1" key={tag} id={tag} label={tag} />
+            <CheckBox
+              className="flex gap-1"
+              key={tag}
+              id={tag}
+              label={tag}
+              checked={food.tags.includes(tag)}
+              onChange={(event) => {
+                // Exercise 6 - Implement this change handler
+                setFood((currentFood) => {
+                  const { checked } = event.target;
+                  const tags = checked
+                    ? [...currentFood.tags, tag]
+                    : currentFood.tags.filter((t) => t !== tag);
+                  return { ...currentFood, tags };
+                });
+              }}
+            />
           ))}
         </CheckBoxList>
         <Button className="block" type="submit">

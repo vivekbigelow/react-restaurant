@@ -6,6 +6,7 @@ type CheckBoxProps = {
   className?: string;
   value?: string;
   checked?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function Input({
@@ -14,10 +15,12 @@ export default function Input({
   className,
   value = "",
   checked,
+  onChange,
 }: CheckBoxProps) {
   return (
     <div className={cx(className, "pb-4")}>
       <input
+        onChange={onChange}
         id={id}
         className="p-1 border-black border-2"
         type="checkbox"
