@@ -11,7 +11,7 @@ export default function CheckBoxList({
 }: CheckBoxListProps) {
   return (
     <fieldset className={className}>
-      <legend>{label}</legend>
+      <legend className="font-bold">{label}</legend>
       {children}
     </fieldset>
   );
