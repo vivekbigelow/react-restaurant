@@ -1,31 +1,32 @@
 import cx from "clsx";
 
-type InputProps = {
+type CheckBoxProps = {
   id: string;
   label: string;
-  type?: "text" | "number";
   className?: string;
   value?: string;
+  checked?: boolean;
 };
 
 export default function Input({
   id,
   label,
-  type = "text",
   className,
   value = "",
-}: InputProps) {
+  checked,
+}: CheckBoxProps) {
   return (
     <div className={cx(className, "pb-4")}>
-      <label className="block" htmlFor={id}>
-        {label}
-      </label>
       <input
         id={id}
         className="p-1 border-black border-2"
-        type={type}
+        type="checkbox"
         value={value}
+        checked={checked}
       />
+      <label className="block" htmlFor={id}>
+        {label}
+      </label>
     </div>
   );
 }
