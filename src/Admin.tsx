@@ -79,6 +79,10 @@ export default function Admin() {
     return newErrors;
   }
 
+  function getError(field:keyof Errors){
+    return status === "submitted" || touched[field] ? errors[field] : "";
+  }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("submitting");
@@ -101,7 +105,8 @@ export default function Admin() {
           onChange={handleInputChange}
           onBlur={handleBlur}
           value={food.name}
-          error={status === "submitted" || touched.name ? errors.name : ""}
+          // Excercise 7 - centralize this logic in a function above
+          error={getError("name")}
         />
         <Input
           id="description"
@@ -109,7 +114,7 @@ export default function Admin() {
           onChange={handleInputChange}
           onBlur={handleBlur}
           value={food.description}
-          error={errors.description}
+          error={getError("description")}
         />
         <Input
           id="price"
@@ -118,7 +123,7 @@ export default function Admin() {
           onChange={handleInputChange}
           onBlur={handleBlur}
           value={food.price.toString()}
-          error={errors.price}
+          error={getError("price")}
         />
         <Input
           id="image"
@@ -127,9 +132,9 @@ export default function Admin() {
           onChange={handleInputChange}
           onBlur={handleBlur}
           value={food.image}
-          error={errors.image}
+          error={getError("image")}
         />
-        <CheckBoxList label="Select Food Tags" error={errors.tags}>
+        <CheckBoxList label="Select Food Tags" error={getError("tags")}>
           {foodTags.map((tag) => (
             <CheckBox
               className="flex gap-1"
