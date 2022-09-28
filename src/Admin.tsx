@@ -86,6 +86,10 @@ export default function Admin() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     window.scrollTo(0,0);
+    
+    // If someone already has clicked the submit, don't run this again.
+    // Yes, we could delete the button, but this is nicer for accessibility
+    if (status === "submitting") return;
     setStatus("submitting");
     if(!isValid) {
       setStatus("submitted")
@@ -159,7 +163,7 @@ export default function Admin() {
           ))}
         </CheckBoxList>
         <Button className="block" type="submit">
-          Save
+          {status === "submitting" ? "Saving..." : "Save" }
         </Button>
       </form>
     </>

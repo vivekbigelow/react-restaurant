@@ -1,3 +1,4 @@
+import { ErrorBoundary } from "react-error-boundary";
 import { Link, Route, Routes } from "react-router-dom";
 import Admin from "./Admin";
 import Menu from "./Menu";
@@ -26,8 +27,22 @@ export default function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<Menu/>} />
-        <Route path="/admin" element={<Admin/>} />
+        <Route
+          path="/"
+          element={
+            <ErrorBoundary fallback={<h1>Oops! Menu crashed</h1>}>
+              <Menu />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ErrorBoundary fallback={<h1>Oops! Admin crashed</h1>}>
+              <Admin />
+            </ErrorBoundary>
+          }
+        />
       </Routes>
     </main>
   );
