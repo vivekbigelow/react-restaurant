@@ -85,6 +85,7 @@ export default function Admin() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    window.scrollTo(0,0);
     setStatus("submitting");
     if(!isValid) {
       setStatus("submitted")
@@ -92,7 +93,9 @@ export default function Admin() {
     }
     await addFood(food); 
     toast.success("Food added! 🍔");
+    setStatus("idle");
     setFood(emptyFood);
+    setTouched({});
   };
 
   return (
