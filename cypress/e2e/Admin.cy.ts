@@ -40,6 +40,7 @@ function addNewFood() {
   cy.findByLabelText("Image Filename").type("fake-photo.jpg");
   cy.findByLabelText("Lunch").check();
   cy.findByRole("button", {name: "Save"}).click(),
+  cy.findByRole("button", {name: "Saving..."}),  
   cy.findByRole("link", {name: "Home"}).click(),
   cy.findByRole("heading", {name: "BBQ Ribs"})
 }
